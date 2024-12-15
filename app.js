@@ -10,6 +10,7 @@ const io = new Server(server, {
     origin: 'https://chat-with-stranger-frontend.vercel.app',
     methods: ['GET', 'POST'],
     credentials: true,
+    secure:true,
   },
   transports: ['websocket', 'polling'], 
 });
@@ -18,7 +19,9 @@ app.use(cors({
   origin: 'https://chat-with-stranger-frontend.vercel.app/',
   methods: ['GET', 'POST'],
   credentials: true,
-}));
+  secure:true,
+}, 
+));
 
 app.get('/', (req, res) => {
   res.send("hello world");
