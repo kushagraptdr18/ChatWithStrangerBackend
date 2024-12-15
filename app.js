@@ -7,14 +7,15 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: 'https://vercel.com/kushagra-patidars-projects/chat-with-stranger-frontend',
+    origin: 'https://chat-with-stranger-frontend.vercel.app',
     methods: ['GET', 'POST'],
     credentials: true,
   },
+  transports: ['websocket', 'polling'], 
 });
 
 app.use(cors({
-  origin: 'https://vercel.com/kushagra-patidars-projects/chat-with-stranger-frontend',
+  origin: 'https://chat-with-stranger-frontend.vercel.app/',
   methods: ['GET', 'POST'],
   credentials: true,
 }));
