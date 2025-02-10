@@ -3,23 +3,27 @@ const { createServer } = require('http');
 const { Server } = require('socket.io');
 const cors = require('cors');
 
+const dotenv= require('dotenv');
+
+dotenv.config();
+
 const app = express();
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: 'https://chat-with-stranger-frontend.vercel.app',
+    origin: process.env.FRONTEND_URL || 'http://localhost:5173',
     methods: ['GET', 'POST'],
     credentials: true,
-    secure:true,
+    secure:false,
   },
   transports: ['websocket', 'polling'], 
 });
 
 app.use(cors({
-  origin: 'https://chat-with-stranger-frontend.vercel.app/',
+  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
   methods: ['GET', 'POST'],
   credentials: true,
-  secure:true,
+  secure:false,
 }, 
 ));
 
@@ -183,8 +187,9 @@ io.on("connection", (socket) => {
   });
 });
 
-let port = process.env.PORT || 3000;
 
-server.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+let PORT = process.env.PORT || 3000;
+
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
